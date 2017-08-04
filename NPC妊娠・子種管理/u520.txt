@@ -1,6 +1,6 @@
 // ‹­§“I‚É”Ü‚©¨‚É”e‰¤‚Ìí‚ğ•t‚¯‚é
 // ”e‰¤‚ğƒ‰ƒ“ƒ_ƒ€‚Éæ“¾‚µ‚Äpid1‚É“ü‚ê‚é
-get_mpid,ó‘Ô=2,”N—î>OLD,«•Ê=1,ŒMŒ÷=13000,•s”D=0
+get_mpid,ó‘Ô=2,”N—î>=OLD,«•Ê=1,ŒMŒ÷=13000,•s”D=0
 set_epid1,pval
 
 eve_start
@@ -29,13 +29,13 @@ chk_mval,eveflg210>=5,,,,
 
 
 // ”Ü‚Æ¨‚ªˆêl‚à‚¢‚È‚©‚Á‚½‚ç‹­§“I‚É‘º–º‚ğdŠ¯‚³‚¹‚Ä¨‚É‚·‚é
-get_mpid,”e‰¤=pid1,ó‘Ô=2,”N—î>OLD,«•Ê=2,•s”D=0,ŒMŒ÷=12200,
+get_mpid,”e‰¤=pid1,ó‘Ô=2,”N—î>=OLD,«•Ê=2,•s”D=0,ŒMŒ÷=12200,
 set_epid2,pval
-get_mpid,”e‰¤=pid1,ó‘Ô=2,”N—î>OLD,«•Ê=2,•s”D=0,–ğE=3,
+get_mpid,”e‰¤=pid1,ó‘Ô=2,”N—î>=OLD,«•Ê=2,•s”D=0,–ğE=3,
 set_epid3,pval
 chk_mval,pid2=0,pid3=0,,,
     chk_mval_then
-        get_mpid,ó‘Ô=7,”N—î>OLD,«•Ê=2,•s”D=0,,,
+        get_mpid,ó‘Ô=7,”N—î>=OLD,”N—î>=TANTO,«•Ê=2,•s”D=0,,
         chk_ormval_then,pval!0,,,,
             chk_ormval_then
                 set_sikan,pval,pid1
@@ -46,11 +46,11 @@ chk_mval,pid2=0,pid3=0,,,
 
 
 // ”Ü‚ª”DP‚Å‚«‚é‚©ƒ`ƒFƒbƒNB‚Å‚«‚é‚È‚çpid2‚É”Ü‚Ìid‚ğ“ü‚ê‚é
-get_mpid,”e‰¤=pid1,ó‘Ô=2,”N—î>OLD,«•Ê=2,•s”D=0,‰ù”D=0,ŒMŒ÷=12200
+get_mpid,”e‰¤=pid1,ó‘Ô=2,”N—î>=OLD,«•Ê=2,•s”D=0,‰ù”D=0,ŒMŒ÷=12200
 set_epid2,pval
 
 // ¨‚ª”DP‚Å‚«‚é‚©ƒ`ƒFƒbƒNB‚Å‚«‚é‚È‚çpid3‚É¨‚Ìid‚ğ“ü‚ê‚é
-get_mpid,”e‰¤=pid1,ó‘Ô=2,”N—î>OLD,«•Ê=2,•s”D=0,‰ù”D=0,–ğE=3
+get_mpid,”e‰¤=pid1,ó‘Ô=2,”N—î>=OLD,«•Ê=2,•s”D=0,‰ù”D=0,–ğE=3
 set_epid3,pval
 
 

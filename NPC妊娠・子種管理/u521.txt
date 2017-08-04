@@ -8,10 +8,10 @@ eve_end
 // 10‰ñ‚Ü‚ÅðŒ‚É‡‚¤ƒJƒbƒvƒ‹‚ðÄŒŸõ‚·‚é
 for,10,290,1
     // ŽmŠ¯‚µ‚Ä‚¢‚é–¢¥‚Ì—«‚ð’T‚µ‚Äpid1‚É“ü‚ê‚éBÅ‰‚Ì5‰ñ‚ÍŽ©¨—Í“à‚Å’T‚·
-    get_mpid,«•Ê=2,ó‘Ô=2,¥ˆ÷=0,”N—î>OLD,“ÁŽê=0,‰ù”D=0,”e‰¤=poid_player
+    get_mpid,«•Ê=2,ó‘Ô=2,¥ˆ÷=0,”N—î>=OLD,“ÁŽê=0,‰ù”D=0,”e‰¤=poid_player
     chk_ormval,pval=0,eveflg290>5,ó‘Ô:player!2,,
         chk_ormval_then
-            get_mpid,«•Ê=2,ó‘Ô=2,¥ˆ÷=0,”N—î>OLD,“ÁŽê=0,‰ù”D=0,•s”D=0
+            get_mpid,«•Ê=2,ó‘Ô=2,¥ˆ÷=0,”N—î>=OLD,“ÁŽê=0,‰ù”D=0,•s”D=0
         chk_ormval_else
     chk_ormval,pval=0,,,,
         chk_ormval_then
@@ -20,7 +20,7 @@ for,10,290,1
     set_epid1,pval
 
     // pid1‚Æ“¯‚¶¨—Í‚Ì–¢¥’j«‚ð’T‚µ‚Äpid2‚É“ü‚ê‚é
-    get_mpid,”e‰¤=poid_pid1,«•Ê=1,ó‘Ô=2,¥ˆ÷=0,”N—î>OLD,“ÁŽê=0,•s”D=0
+    get_mpid,”e‰¤=poid_pid1,«•Ê=1,ó‘Ô=2,¥ˆ÷=0,”N—î>=OLD,“ÁŽê=0,•s”D=0
     chk_ormval,pval=0,,,,
         chk_ormval_then
             end
