@@ -144,10 +144,10 @@ select_pid,eveflg297
         upd_sts,eveflg297,26,0
         set_sinmitu,eveflg297,50
         set_virgin,eveflg297
-        rnd,4
+        rnd,3
         case0
             // ”e‰¤qí‚É‚·‚é
-            set_pnen,eveflg297,0
+            upd_sts,eveflg297,2,-1000
             upd_sts,eveflg297,0,1
             upd_sts,eveflg297,4,12100
             upd_sts,eveflg297,2,-1000
@@ -163,24 +163,8 @@ select_pid,eveflg297
             upd_sts,eveflg297,9,5
             return
         case1
-            // ˆê”Êqí‚É‚·‚é
-            set_pnen,eveflg297,0
-            set_hourou,eveflg297
-            upd_sts,eveflg297,4,1000
-            upd_sts,eveflg297,5,-1000
-            upd_sts,eveflg297,5,5
-            upd_sts,eveflg297,6,-1000
-            upd_sts,eveflg297,6,5
-            upd_sts,eveflg297,7,-1000
-            upd_sts,eveflg297,7,5
-            upd_sts,eveflg297,8,-1000
-            upd_sts,eveflg297,8,5
-            upd_sts,eveflg297,9,-1000
-            upd_sts,eveflg297,9,5
-            return
-        case2
             // •”‰ºƒvƒŒ[—pqí‚É‚·‚é
-            set_pnen,eveflg297,0
+            upd_sts,eveflg297,2,-1000
             upd_sts,eveflg297,0,13
             upd_sts,eveflg297,4,1000
             upd_sts,eveflg297,5,-1000
@@ -194,7 +178,7 @@ select_pid,eveflg297
             upd_sts,eveflg297,9,-1000
             upd_sts,eveflg297,9,5
             return
-        case3
+        case2
             // ‘º–º‚É‚·‚é
             set_pnen,eveflg297,12
             upd_sts,eveflg297,0,7
@@ -218,23 +202,12 @@ select_pid,eveflg297
         set_sinmitu,eveflg297,50
         set_virgin,eveflg297
         upd_sts,eveflg297,4,1000
-        set_pnen,eveflg297,16
-        rnd,2
-        case0
-            // •ú˜Qó‘Ô‚É‚·‚é
-            set_hourou,eveflg297
-            upd_sts,eveflg297,5,-5
-            upd_sts,eveflg297,6,-5
-            upd_sts,eveflg297,7,-5
-            upd_sts,eveflg297,8,-5
-            upd_sts,eveflg297,9,-5
-            return
-        case1
-            // ‘º–º‚É‚·‚é
-            upd_sts,eveflg297,0,7
-            upd_sts,eveflg297,5,-5
-            upd_sts,eveflg297,6,-5
-            upd_sts,eveflg297,7,-5
-            upd_sts,eveflg297,8,-5
-            upd_sts,eveflg297,9,-5
-            return
+        set_pnen,eveflg297,20
+        // •ú˜Qó‘Ô‚É‚·‚é
+        set_hourou,eveflg297
+        upd_sts,eveflg297,5,-5
+        upd_sts,eveflg297,6,-5
+        upd_sts,eveflg297,7,-5
+        upd_sts,eveflg297,8,-5
+        upd_sts,eveflg297,9,-5
+        return

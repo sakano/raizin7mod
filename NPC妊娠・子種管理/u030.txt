@@ -241,11 +241,11 @@ select_pid,eveflg297
         upd_sts,eveflg297,25,0
         upd_sts,eveflg297,26,0
         set_sinmitu,eveflg297,50
-        rnd,3
+        upd_sts,eveflg297,2,-1000
+        rnd,2
         case0
             //覇王子種にする
             upd_sts,eveflg297,0,1
-            upd_sts,eveflg297,2,-1000
             upd_sts,eveflg297,4,12300
             upd_sts,eveflg297,5,-1000
             upd_sts,eveflg297,5,5
@@ -259,26 +259,9 @@ select_pid,eveflg297
             upd_sts,eveflg297,9,5
             return
         case1
-            // 一般子種にする
-            set_hourou,eveflg297
-            upd_sts,eveflg297,4,1000
-            upd_sts,eveflg297,2,-1000
-            upd_sts,eveflg297,5,-1000
-            upd_sts,eveflg297,5,5
-            upd_sts,eveflg297,6,-1000
-            upd_sts,eveflg297,6,5
-            upd_sts,eveflg297,7,-1000
-            upd_sts,eveflg297,7,5
-            upd_sts,eveflg297,8,-1000
-            upd_sts,eveflg297,8,5
-            upd_sts,eveflg297,9,-1000
-            upd_sts,eveflg297,9,5
-            return
-        case2
             // 部下プレー用子種にする
             upd_sts,eveflg297,0,13
             upd_sts,eveflg297,4,1000
-            upd_sts,eveflg297,2,-1000
             upd_sts,eveflg297,5,-1000
             upd_sts,eveflg297,5,5
             upd_sts,eveflg297,6,-1000
@@ -311,11 +294,11 @@ select_pid,eveflg297
         upd_sts,eveflg297,9,-5
         rnd,3
         case0
-            set_pnen,eveflg297,16
+            set_pnen,eveflg297,18
             return
         case1
-            set_pnen,eveflg297,20
+            set_pnen,eveflg297,22
             return
         case2
-            set_pnen,eveflg297,24
+            set_pnen,eveflg297,26
             return

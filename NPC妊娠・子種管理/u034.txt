@@ -1,7 +1,8 @@
-// 子種管理
+// 子種管理(少ない子種を他の子種から変換して補充する)
 
 eve_start
     if_month,12
+    if_aft_date,81,1
 eve_end
 
 
@@ -10,31 +11,37 @@ eve_end
     set_eveflg,295,0
     // 覇王子種の数
     set_eveflg,296,0
-    // 部下プレー用子種の数
+    // 部下プレー子種の数
     set_eveflg,297,0
     // 一般子種の数
     set_eveflg,298,0
 
-    for,PMAX,299,1
-        chk_mval,状態:eveflg299=7,,,,
+    for,PMAX,232,1
+        chk_mval,状態:eveflg232=7,,,,
             chk_mval_then
                 add_eveflg,295,1
                 continue
             chk_mval_else
-        chk_mval,状態:eveflg299=1,,,,
+        chk_mval,状態:eveflg232=1,特殊:eveflg232=0,父:eveflg232=0,母:eveflg232=0,
             chk_mval_then
                 add_eveflg,296,1
                 continue
             chk_mval_else
-        chk_mval,状態:eveflg299=13,,,,
+        chk_mval,状態:eveflg232=13,特殊:eveflg232=0,父:eveflg232=0,母:eveflg232=0,
             chk_mval_then
                 add_eveflg,297,1
                 continue
             chk_mval_else
-        chk_mval,状態:eveflg299=5,特殊:eveflg299=0,父:eveflg299=0,母:eveflg299=0,年齢:eveflg299=0
+        chk_mval,状態:eveflg232=5,特殊:eveflg232=0,父:eveflg232=0,母:eveflg232=0,
             chk_mval_then
-                add_eveflg,298,1
-                continue
+                chk_ormval,年齢:eveflg232=0,年齢:eveflg232=1,,,
+                    chk_ormval_then
+                        gosub,*IDcheck
+                        chk_eveflg,250,!0
+                            chk_eveflg_then
+                                add_eveflg,298,1
+                            chk_eveflg_else
+                    chk_ormval_else
             chk_mval_else
                 continue
     next
@@ -43,269 +50,290 @@ eve_end
 // デバッグ表示 set_run_msg,[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
 
 
-// 覇王子種の数を増やす
-    // 覇王子種の数が少なく、部下プレー用子種があれば変換
-    chk_mval,eveflg296<5,eveflg297>15,,,
-        chk_mval_then
-            // デバッグ表示 set_run_msg,[子種変換]部下プレー用子種から覇王子種に変換します
-            // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-            for,3,211,1
-                get_mpid,状態=13,性別=1,父=0,母=0,,,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
+// 覇王子種を増やす
+    // 部下プレー子種から覇王子種に変換
+    // デバッグ表示 set_run_msg,[子種変換]部下プレー子種から覇王子種に変換します
+    // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+    for,4,211,1
+        chk_ormval,eveflg296>=8,eveflg297<=8,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        get_mpid,状態=13,性別=1,父=0,母=0,,,
+        chk_ormval,pval!0,,,,
+            chk_ormval_then
+                upd_sts,pval,0,1
+                upd_sts,pval,4,12300
+                add_eveflg,296,1
+                add_eveflg,297,-1
+            chk_ormval_else
+        get_mpid,状態=13,性別=2,父=0,母=0,,,
+        chk_ormval,pval!0,,,,
+            chk_ormval_then
+                upd_sts,pval,0,1
+                upd_sts,pval,4,12100
+                add_eveflg,296,1
+                add_eveflg,297,-1
+            chk_ormval_else
+        continue
+    next
+    // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+
+    // 一般子種から覇王子種に変換
+    // デバッグ表示 set_run_msg,[子種変換]一般子種から覇王子種に変換します
+    // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+    for,4,211,1
+        chk_ormval,eveflg296>=8,eveflg298<=8,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        get_mpid,状態=5,特殊=0,父=0,母=0,年齢=0,性別=1,
+        chk_ormval,pval!0,,,,
+            chk_ormval_then
+                set_eveflg,232,pval
+                gosub,*IDcheck
+                chk_eveflg,250,!0
+                    chk_eveflg_then
                         upd_sts,pval,0,1
                         upd_sts,pval,4,12300
                         add_eveflg,296,1
-                        add_eveflg,297,-1
-                    chk_ormval_else
-                get_mpid,状態=13,性別=2,父=0,母=0,,,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
+                        add_eveflg,298,-1
+                    chk_eveflg_else
+            chk_ormval_else
+        get_mpid,状態=5,特殊=0,父=0,母=0,年齢=0,性別=2,
+        chk_ormval,pval!0,,,,
+            chk_ormval_then
+                set_eveflg,232,pval
+                gosub,*IDcheck
+                chk_eveflg,250,!0
+                    chk_eveflg_then
                         upd_sts,pval,0,1
                         upd_sts,pval,4,12100
                         add_eveflg,296,1
-                        add_eveflg,297,-1
-                    chk_ormval_else
-                continue
-            next
-            // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-        chk_mval_else
-
-    // 覇王子種の数が少なく、一般子種があれば変換
-    chk_mval,eveflg296<5,eveflg298>15,,,
-        chk_mval_then
-            // デバッグ表示 set_run_msg,[子種変換]一般子種から覇王子種に変換します
-            // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-            for,3,212,1
-                get_mpid,状態=5,特殊=0,父=0,母=0,年齢<1,性別=1,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
-                        upd_sts,pval,0,1
-                        set_pnen,pval,0
-                        upd_sts,pval,4,12300
-                        add_eveflg,296,1
                         add_eveflg,298,-1
-                    chk_ormval_else
-                get_mpid,状態=5,特殊=0,父=0,母=0,年齢<1,性別=2,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
-                        upd_sts,pval,0,1
-                        set_pnen,pval,0
-                        upd_sts,pval,4,12100
-                        add_eveflg,296,1
-                        add_eveflg,298,-1
-                    chk_ormval_else
-                continue
-            next
-            // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-        chk_mval_else
+                    chk_eveflg_else
+            chk_ormval_else
+        continue
+    next
+    // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
 
-// 部下プレー子種の数を増やす
-    // 部下プレー子種の数が少なく、覇王子種があれば変換
-    chk_mval,eveflg297<5,eveflg296>15,,,
-        chk_mval_then
-            // デバッグ表示 set_run_msg,[子種変換]覇王子種から部下プレー子種に変換します
-            // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-            for,5,213,1
-                get_mpid,状態=1,父=0,母=0,,,,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
-                        upd_sts,pval,0,13
-                        upd_sts,pval,4,1000
-                        add_eveflg,297,1
-                        add_eveflg,296,-1
-                        continue
-                    chk_ormval_else
-                        break
-            next
-            // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-        chk_mval_else
+// 部下プレー子種を増やす
+    // 覇王子種から部下プレー子種に変換
+    // デバッグ表示 set_run_msg,[子種変換]覇王子種から部下プレー子種に変換します
+    // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+    for,8,211,1
+        chk_ormval,eveflg297>=8,eveflg296<=8,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        get_mpid,状態=1,父=0,母=0,,,,
+        chk_ormval,pval=0,,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        upd_sts,pval,0,13
+        upd_sts,pval,4,1000
+        add_eveflg,297,1
+        add_eveflg,296,-1
+        continue
+    next
+    // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
 
-    // 部下プレー子種の数が少なく、一般子種があれば変換
-    chk_mval,eveflg297<5,eveflg298>15,,,
-        chk_mval_then
-            // デバッグ表示 set_run_msg,[子種変換]一般子種から部下プレー子種に変換します
-            // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-            for,5,214,1
-                get_mpid,状態=5,特殊=0,父=0,母=0,年齢<1,,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
-                        upd_sts,pval,0,13
-                        set_pnen,pval,0
-                        add_eveflg,297,1
-                        add_eveflg,298,-1
-                        continue
-                    chk_ormval_else
-                        break
-            next
-            // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-        chk_mval_else
+    // 一般子種から部下プレー子種に変換
+    // デバッグ表示 set_run_msg,[子種変換]一般子種から部下プレー子種に変換します
+    // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+    for,8,211,1
+        chk_ormval,eveflg297>=8,eveflg298<=8,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        get_mpid,状態=5,特殊=0,父=0,母=0,年齢=0,,
+        chk_ormval,pval=0,,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        set_eveflg,232,pval
+        gosub,*IDcheck
+        chk_eveflg,250,!0
+            chk_eveflg_then
+                upd_sts,pval,0,13
+                upd_sts,pval,2,-1000
+                add_eveflg,297,1
+                add_eveflg,298,-1
+            chk_eveflg_else
+        continue
+    next
+    // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
 
-// 一般子種の数を増やす
-    // 一般子種の数が少なく、覇王子種があれば変換
-    chk_mval,eveflg298<5,eveflg296>15,,,
-        chk_mval_then
-            // デバッグ表示 set_run_msg,[子種変換]覇王子種から一般子種に変換します
-            // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-            for,5,215,1
-                get_mpid,状態=1,父=0,母=0,,,,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
-                        set_hourou,pval
-                        upd_sts,pval,4,1000
-                        add_eveflg,298,1
-                        add_eveflg,296,-1
-                        continue
-                    chk_ormval_else
-                        break
-            next
-            // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-        chk_mval_else
+// 一般子種を増やす
+    // 部下プレー子種から一般子種に変換
+    // デバッグ表示 set_run_msg,[子種変換]部下プレー子種から一般子種に変換します
+    // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+    for,8,211,1
+        chk_ormval,eveflg298>=8,eveflg297<=8,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        get_mpid,状態=13,父=0,母=0,,,,
+        chk_ormval,pval=0,,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        set_eveflg,232,pval
+        gosub,*IDcheck
+        chk_eveflg,250,!0
+            chk_eveflg_then
+                set_hourou,pval
+                upd_sts,pval,4,1000
+                add_eveflg,298,1
+                add_eveflg,297,-1
+            chk_eveflg_else
+        continue
+    next
+    // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
 
-    // 一般子種の数が少なく、部下プレー用子種があれば変換
-    chk_mval,eveflg298<5,eveflg297>15,,,
-        chk_mval_then
-            // デバッグ表示 set_run_msg,[子種変換]部下プレー子種から一般子種に変換します
-            // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-            for,5,216,1
-                get_mpid,状態=13,父=0,母=0,,,,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
-                        set_hourou,pval
-                        upd_sts,pval,4,1000
-                        add_eveflg,298,1
-                        add_eveflg,297,-1
-                        continue
-                    chk_ormval_else
-                        break
-            next
-            // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-        chk_mval_else
+    // 覇王子種から一般子種に変換
+    // デバッグ表示 set_run_msg,[子種変換]覇王子種から一般子種に変換します
+    // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+    for,8,211,1
+        chk_ormval,eveflg298>=8,eveflg296<=8,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        get_mpid,状態=1,父=0,母=0,,,,
+        chk_ormval,pval=0,,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        set_eveflg,232,pval
+        gosub,*IDcheck
+        chk_eveflg,250,!0
+            chk_eveflg_then
+                set_hourou,pval
+                upd_sts,pval,4,1000
+                add_eveflg,298,1
+                add_eveflg,296,-1
+            chk_eveflg_else
+        continue
+    next
+    // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
 
 // 子種の間での変換で間に合わなければ村娘から変換
-    // 覇王子種が少なければ村娘から変換
-    chk_mval,eveflg296<5,,,,
-        chk_mval_then
-            // デバッグ表示 set_run_msg,[子種変換]村娘から覇王子種に変換します
-            // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-            for,5,217,1
-                get_mpid,状態=7,,,,,,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
-                        upd_sts,pval,0,1
-                        set_pnen,pval,0
-                        set_virgin,pval
-                        set_sinmitu,50
-                        upd_sts,pval,4,12100
-                        upd_sts,pval,5,-1000
-                        upd_sts,pval,5,5
-                        upd_sts,pval,6,-1000
-                        upd_sts,pval,6,5
-                        upd_sts,pval,7,-1000
-                        upd_sts,pval,7,5
-                        upd_sts,pval,8,-1000
-                        upd_sts,pval,8,5
-                        upd_sts,pval,9,-1000
-                        upd_sts,pval,9,5
-                        add_eveflg,296,1
-                        add_eveflg,295,-1
-                        continue
-                    chk_ormval_else
-                        break
-            next
-            // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-        chk_mval_else
+    // 村娘から覇王子種に変換
+    // デバッグ表示 set_run_msg,[子種変換]村娘から覇王子種に変換します
+    // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+    for,8,211,1
+        get_mpid,状態=7,,,,,,
+        chk_ormval,pval=0,eveflg296>=8,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        upd_sts,pval,0,1
+        upd_sts,pval,2,-1000
+        set_virgin,pval
+        set_sinmitu,pval,50
+        upd_sts,pval,4,12100
+        upd_sts,pval,5,-1000
+        upd_sts,pval,5,5
+        upd_sts,pval,6,-1000
+        upd_sts,pval,6,5
+        upd_sts,pval,7,-1000
+        upd_sts,pval,7,5
+        upd_sts,pval,8,-1000
+        upd_sts,pval,8,5
+        upd_sts,pval,9,-1000
+        upd_sts,pval,9,5
+        add_eveflg,296,1
+        add_eveflg,295,-1
+        continue
+    next
+    // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
 
-    // 部下プレー子種が少なければ村娘から変換
-    chk_mval,eveflg297<5,,,,
-        chk_mval_then
-            // デバッグ表示 set_run_msg,[子種変換]村娘から部下プレー子種に変換します
-            // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-            for,5,218,1
-                get_mpid,状態=7,,,,,,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
-                        upd_sts,pval,0,1
-                        set_pnen,pval,0
-                        set_virgin,pval
-                        set_sinmitu,50
-                        upd_sts,pval,4,1000
-                        upd_sts,pval,5,-1000
-                        upd_sts,pval,5,5
-                        upd_sts,pval,6,-1000
-                        upd_sts,pval,6,5
-                        upd_sts,pval,7,-1000
-                        upd_sts,pval,7,5
-                        upd_sts,pval,8,-1000
-                        upd_sts,pval,8,5
-                        upd_sts,pval,9,-1000
-                        upd_sts,pval,9,5
-                        add_eveflg,297,1
-                        add_eveflg,295,-1
-                        continue
-                    chk_ormval_else
-                        break
-            next
-            // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-        chk_mval_else
+    // 村娘から部下プレー子種に変換
+    // デバッグ表示 set_run_msg,[子種変換]村娘から部下プレー子種に変換します
+    // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+    for,8,211,1
+        get_mpid,状態=7,,,,,,
+        chk_ormval,pval=0,eveflg297>=8,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        upd_sts,pval,0,1
+        upd_sts,pval,2,-1000
+        set_virgin,pval
+        set_sinmitu,pval,50
+        upd_sts,pval,4,1000
+        upd_sts,pval,5,-1000
+        upd_sts,pval,5,5
+        upd_sts,pval,6,-1000
+        upd_sts,pval,6,5
+        upd_sts,pval,7,-1000
+        upd_sts,pval,7,5
+        upd_sts,pval,8,-1000
+        upd_sts,pval,8,5
+        upd_sts,pval,9,-1000
+        upd_sts,pval,9,5
+        add_eveflg,297,1
+        add_eveflg,295,-1
+        continue
+    next
+    // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
 
-    // 一般子種の数が少なければ村娘から変換
-    chk_mval,eveflg298<5,,,,
-        chk_mval_then
-            // デバッグ表示 set_run_msg,[子種変換]村娘から一般子種に変換します
-            // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-            for,5,219,1
-                get_mpid,状態=7,,,,,,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
-                        set_hourou,pval
-                        set_pnen,pval,0
-                        set_virgin,pval
-                        set_sinmitu,50
-                        upd_sts,pval,4,1000
-                        upd_sts,pval,5,-1000
-                        upd_sts,pval,5,5
-                        upd_sts,pval,6,-1000
-                        upd_sts,pval,6,5
-                        upd_sts,pval,7,-1000
-                        upd_sts,pval,7,5
-                        upd_sts,pval,8,-1000
-                        upd_sts,pval,8,5
-                        upd_sts,pval,9,-1000
-                        upd_sts,pval,9,5
-                        add_eveflg,298,1
-                        add_eveflg,295,-1
-                        continue
-                    chk_ormval_else
-                        break
-            next
-            // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-        chk_mval_else
+    // 村娘から一般子種に変換
+    // デバッグ表示 set_run_msg,[子種変換]村娘から一般子種に変換します
+    // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+    for,8,211,1
+        get_mpid,状態=7,,,,,,
+        chk_ormval,pval=0,eveflg298>=8,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        set_eveflg,232,pval
+        gosub,*IDcheck
+        chk_eveflg,250,!0
+            chk_eveflg_then
+                set_hourou,pval
+                upd_sts,pval,2,-1000
+                set_virgin,pval
+                set_sinmitu,pval,50
+                upd_sts,pval,4,1000
+                upd_sts,pval,5,-1000
+                upd_sts,pval,5,5
+                upd_sts,pval,6,-1000
+                upd_sts,pval,6,5
+                upd_sts,pval,7,-1000
+                upd_sts,pval,7,5
+                upd_sts,pval,8,-1000
+                upd_sts,pval,8,5
+                upd_sts,pval,9,-1000
+                upd_sts,pval,9,5
+                add_eveflg,298,1
+                add_eveflg,295,-1
+            chk_eveflg_else
+        continue
+    next
+    // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
 
 // 村娘が多すぎる場合は在野に変換する
-    chk_mval,eveflg295>40,,,,
-        chk_mval_then
-            // デバッグ表示 set_run_msg,[子種変換]村娘から在野に変換します
-            for,10,219,1
-                get_mpid,状態=7,,,,,,
-                chk_ormval,pval!0,,,,
-                    chk_ormval_then
-                        set_hourou,pval
-                        add_eveflg,295,-1
-                        continue
-                    chk_ormval_else
-                        break
-            next
-        chk_mval_else
+    // デバッグ表示 set_run_msg,[子種変換]村娘から在野に変換します
+    // デバッグ表示 set_run_msg,　[子種変換]変換前=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+    for,5,211,1
+        get_mpid,状態=7,,,,,,
+        chk_ormval,pval=0,eveflg295<=50,,,
+            chk_ormval_then
+                break
+            chk_ormval_else
+        set_hourou,pval
+        add_eveflg,295,-1
+        continue
+    next
+    // デバッグ表示 set_run_msg,　[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
 
-// デバッグ表示 set_run_msg,[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
-
-
-// いずれかの子種か村娘が少なければ30歳以上の在野を死亡させる
-    chk_ormval,eveflg295<5,eveflg296<5,eveflg297<5,eveflg298<5,
+// いずれかの子種が少なければ30歳以上の在野を死亡させる
+    chk_ormval,eveflg296<5,eveflg297<5,eveflg298<5,,
         chk_ormval_then
             // デバッグ表示 set_run_msg,[子種変換]30歳以上の在野を死亡させます
-            for,10,220,1
+            for,15,220,1
                 get_mpid,状態=5,年齢>=30,特殊=0,,,,
                 chk_mval,pval!0,状態=5,,,
                     chk_mval_then
@@ -315,4 +343,203 @@ eve_end
                         break
             next
         chk_ormval_else
+
+// デバッグ表示 set_run_msg,[子種変換]変換後=村娘:str_eveflg(295)、覇王:str_eveflg(296)、部下プレー:str_eveflg(297)、一般:str_eveflg(298)
+
 end
+
+*IDcheck
+select_pid,eveflg232
+    case_6
+    case_15
+    case_31
+    case_32
+    case_52
+    case_77
+    case_87
+    case_107
+    case_113
+    case_115
+    case_157
+    case_173
+    case_176
+    case_182
+    case_195
+    case_217
+    case_219
+    case_227
+    case_260
+    case_261
+    case_266
+    case_286
+    case_287
+    case_303
+    case_304
+    case_314
+    case_322
+    case_344
+    case_367
+    case_379
+    case_394
+    case_411
+    case_420
+    case_428
+    case_429
+    case_436
+    case_442
+    case_448
+    case_460
+    case_474
+    case_481
+    case_490
+    case_491
+    case_493
+    case_534
+    case_537
+    case_540
+    case_556
+    case_558
+    case_600
+    case_608
+    case_609
+    case_615
+    case_620
+    case_626
+    case_648
+    case_651
+    case_669
+    case_672
+    case_681
+    case_686
+    case_696
+    case_700
+    case_703
+    case_710
+    case_715
+    case_731
+    case_735
+    case_736
+    case_787
+    case_788
+    case_790
+    case_813
+    case_854
+    case_856
+    case_857
+    case_858
+    case_859
+    case_860
+    case_861
+    case_862
+    case_863
+    case_864
+    case_865
+    case_866
+    case_867
+    case_868
+    case_870
+    case_871
+    case_876
+    case_877
+    case_879
+    case_880
+    case_881
+    case_891
+    case_893
+    case_44
+    case_68
+    case_130
+    case_133
+    case_204
+    case_208
+    case_243
+    case_340
+    case_355
+    case_371
+    case_393
+    case_401
+    case_409
+    case_566
+    case_567
+    case_569
+    case_572
+    case_573
+    case_579
+    case_582
+    case_583
+    case_584
+    case_586
+    case_587
+    case_588
+    case_589
+    case_590
+    case_591
+    case_593
+    case_594
+    case_596
+    case_598
+    case_605
+    case_606
+    case_607
+    case_617
+    case_663
+    case_664
+    case_667
+    case_668
+    case_719
+    case_722
+    case_726
+    case_727
+    case_728
+    case_729
+    case_730
+    case_732
+    case_744
+    case_746
+    case_749
+    case_750
+    case_752
+    case_753
+    case_782
+    case_784
+    case_806
+    case_807
+    case_808
+    case_809
+    case_815
+    case_843
+    case_1000
+    case_1001
+    case_1004
+    case_1005
+    case_1006
+    case_1007
+    case_1008
+    case_1010
+    case_1012
+    case_1015
+    case_1016
+    case_1019
+    case_1020
+    case_1033
+    case_1035
+    case_1036
+    case_1038
+    case_1040
+    case_1041
+    case_1050
+    case_1051
+    case_1052
+    case_1055
+    case_1073
+    case_1087
+    case_1091
+    case_1094
+    case_1099
+        // 小顔あり
+        set_eveflg,250,1
+        return
+    default
+        // 小顔なし
+        set_eveflg,250,0
+        return
