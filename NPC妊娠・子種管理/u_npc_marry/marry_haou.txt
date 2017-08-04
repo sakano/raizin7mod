@@ -1,0 +1,69 @@
+// ■pid1(女)とpid2(男)が結婚する
+
+// pid4はプレイヤー
+set_epid4,player
+
+// 他勢力での結婚ならここで終わり
+chk_ormval,状態:player!2,覇王:pid1!poid_player,覇王:pid2!poid_player,,
+    chk_ormval_then
+        set_pkon,pid1,pid2
+        end
+    chk_ormval_else
+
+// pid3が結婚の知らせを伝える
+get_kunpsn,player,pid1
+set_epid3,pval
+chk_mval,pid3=0,,,,
+    chk_mval_then
+        set_epid3,1
+    chk_mval_else
+
+// 結婚の知らせを聞く
+bgm_chg,60
+zin_reg_init
+zin_reg_event,結婚報告,pid3,player,,gzin8
+chk_ormval,pid3=pid2,,,,
+       chk_ormval_then
+    zin_reg_msg,call_pid24にご報告があります,0
+    zin_reg_msg,どうした,1
+    zin_reg_msg,このたびcf_pid2とpk_name1が結婚することになりました,0
+    zin_reg_msg,なんと！,1
+    zin_reg_face,pid1
+    zin_reg_msg,p_name2とp_name1が・・・,1
+    zin_reg_2sel,認める,認めない
+    get_resp
+    ret_sel1
+        zin_reg_msg,うむ、めでたいことだ,1
+        zin_reg_msg,ありがとうございます,0
+        zin_reg_exit
+        set_pkon,pid1,pid2
+        end
+    ret_sel2
+        zin_reg_msg,それはいかん,1
+        zin_reg_msg,は？,0
+        zin_reg_msg,は？ではない。結婚は認められん,1
+        zin_reg_msg,・・・かしこまりました。諦めましょう,0
+        zin_reg_exit
+        end
+    chk_ormval_else
+    zin_reg_msg,call_pid24にご報告があります,0
+    zin_reg_msg,どうした,1
+    zin_reg_msg,このたびpk_name1とpk_name2が結婚することになりました,0
+    zin_reg_msg,なんと！,1
+    zin_reg_face,pid1
+    zin_reg_msg,p_name2とp_name1が・・・,1
+    zin_reg_2sel,認める,認めない
+    get_resp
+    ret_sel1
+        zin_reg_msg,うむ、めでたいことだ,1
+        zin_reg_msg,まったくでございます,0
+        zin_reg_exit
+        set_pkon,pid1,pid2
+        end
+    ret_sel2
+        zin_reg_msg,それはいかん,1
+        zin_reg_msg,は？,0
+        zin_reg_msg,は？ではない。結婚は認められん,1
+        zin_reg_msg,・・・かしまりました。伝えておきましょう,0
+        zin_reg_exit
+        end

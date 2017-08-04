@@ -1,0 +1,52 @@
+// ■初めての相手と無理矢理寝取りイベント
+
+bl_fadeout
+bgm_chg,64
+zin_old_init
+zin_old_img_pid,pid1,1
+zin_old_msg,これがcall_pid41のman_strか。まだ綺麗なものだな。p_name2には何回挿れられたんだ？,pid4
+zin_old_msg,・・・call_pid14に教える必要は無いでしょう。やるなら早く済ませて,pid1
+zin_old_msg,随分と冷たいな。これからcf_pid4のtin_strが入るって言うのに。しかし早くしろと言うのならしてやろう,pid4
+zin_old_msg,んぅっ、んっ・・・入ってくる・・・ぅ、あぁ・・・,pid1
+zin_old_msg,はぁっ、はぁっ・・・んぁあっ・・・。あうぅっ・・まだっ、はぅっ、ぜんぶ、入らないのっ・・あんっ,pid1
+zin_old_msg,なんだ、p_name2のtin_strは短小なのか？ははは、これはいい。本当の男の味って奴を教えてやるよ,pid4
+zin_old_msg,あっあぁっ、ひゃあっ、ひぃっ！ちょ、ちょっと待っ、あぅっ、そんなっ・・・うっ、うごかないでぇっ！,pid1
+zin_old_msg,やっ、あうっ、これだめっ、はぁんっ、あぁっ、ああんっ、んぁっ、うぅうっ！,pid1
+zin_old_msg,こ、こんなっ、こんなのっ、知らないぃっ・・・！ひぁっ、これっ、気持ちぃいのっ、んはぁっ、感じちゃうぅっ・・・あぁあんっ！,pid1
+zin_old_msg,かわいい声も出せるじゃないか。どうだ、cf_pid4のtin_strは？しかしp_name1のman_strは少しきつすぎるなっ！,pid4
+zin_old_msg,あぅぅっ、だってぇっ、こんなっ、おっ、おおきいのっ、はじめてだからぁ,pid1
+zin_old_msg,ひゃあぁっ、いいっ、call_pid14のtin_str気持ちいいっ！あっ、んあっ、ふぁあんっ！,pid1
+zin_old_msg,もっとぉっ、もっと奥突いてぇっ！気持ちいいところっ、はぁあっ、突いてほしいのぉっ！ああぁぁっ、んあぁっ、すごいっ、すごいよぉっ！,pid1
+zin_old_msg,ふはは、cf_pid4のtin_strにはまりすぎるなよ。結婚したらp_name2のモノで我慢しなくちゃならないんだからなっ,pid4
+zin_old_msg,んあぁっ、むりぃっ、あぁっあぁあっ、こんなの知っちゃったらぁっ、あうぅ、我慢できないよぉっ！,pid1
+zin_old_msg,くぅうっ、こんなっ、うぅっ、無理矢理っ、されてるのにぃっ、んぅうっ、cf_pid1っ、おかしくなっちゃううぅっ！,pid1
+zin_old_msg,そろそろラストスパートだっ！中で出してやるからしっかり受け止めろ！,pid4
+zin_old_msg,ひぃいぃっ、はっ、激しすぎっ、ぐっ、うぅっ！はあぁああんっ！ほんとにっ、こんなことっ、んあぁぁっ！,pid1
+zin_old_msg,出されちゃうっ！中で出されて種付けされちゃうぅっ！中はっ、だめぇっ、あぁっ、だめなのにっ、んんぅうっ、イっちゃうよおっ！,pid1
+zin_old_msg,あっ、あぁっ、あぁんっ、ああぁあああぁぁあああっ！,pid1
+zin_flush,pid1
+zin_old_msg,ひぁああぁぁんっ、出てるっ、cf_pid1の一番深いところでっ、出されてるぅうぅぅっ・・・！,pid1
+zin_flush_one,pid1
+zin_old_msg,はぁああぁっ、あぁぁあんっ！まだ出てっ、あっ、ひゃんっ、いいよぉっ！すごいぃいぃぃっ！,pid1
+zin_flush_one,pid1
+zin_old_msg,はぁ・・・はぁ・・・あぁ、んうぅ・・・,pid1
+zin_old_msg,・・・cf_pid1・・・レイプで中出しされて、イかされちゃった・・・・・・うぅ・・・,pid1
+zin_old_msg,絶頂したようだな。どうだ、本物のtin_strは気持ちよかったか？,pid4
+zin_old_msg,しかしまだ終わらんぞ。今夜は一晩中可愛がってやる。イきすぎて壊れるなよ。ははは,pid4
+zin_old_msg,ひ、一晩中？そんな・・・そんなの、cf_pid1の体おかしくなっちゃう・・・だめぇ・・・,pid1
+zin_old_msg,p_name4はp_name1を一晩中抱き続けた・・・,0
+zin_old_msg,p_name1を性奴隷にしますか？,0
+zin_reg_3sel,する,しない,性奴隷にして離婚させる
+get_resp
+ret_sel1
+    zin_old_msg,p_name1はp_name4の性奴隷になった,0
+    set_sinmitu,pid1,110
+    txtload,u_npc_marry/ntr_end
+ret_sel2
+    add_sinmitu,pid1,30
+    txtload,u_npc_marry/ntr_end
+ret_sel3
+    zin_old_msg,p_name1はp_name4の性奴隷になった,0
+    set_rikon,pid1,pid2
+    set_sinmitu,pid1,110
+    txtload,u_npc_marry/ntr_end

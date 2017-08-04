@@ -1,0 +1,91 @@
+// 強制的に妃か妾に覇王の種を付ける
+// 覇王をランダムに取得してpid1に入れる
+get_mpid,状態=2,年齢>OLD,性別=1,勲功=13000,不妊=0
+set_epid1,pval
+
+eve_start
+    if_val,pid1!0
+    if_val,pid1!player
+eve_end
+
+
+// 覇王の子供の数を計算してeveflg210に入れる
+set_eveflg,210,0
+for,PMAX,200,1
+    chk_ormval,父:eveflg200=pid1,種父:eveflg200=pid1,,,
+    chk_ormval_then
+        plus,210,eveflg210,1
+    chk_ormval_else
+        continue
+next
+
+// 計算した子供の数が5人以上ならやめる
+chk_mval,eveflg210>=5,,,,
+    chk_mval_then
+        // デバッグ表示 set_run_msg,覇王:p_name1の子供数がstr_eveflg(210)人なので種付けしません
+        end
+    chk_mval_else
+
+
+
+// 妃と妾が一人もいなかったら強制的に村娘を仕官させて妾にする
+get_mpid,覇王=pid1,状態=2,年齢>OLD,性別=2,不妊=0,勲功=12200,
+set_epid2,pval
+get_mpid,覇王=pid1,状態=2,年齢>OLD,性別=2,不妊=0,役職=3,
+set_epid3,pval
+chk_mval,pid2=0,pid3=0,,,
+    chk_mval_then
+        get_mpid,状態=7,年齢>OLD,性別=2,不妊=0,,,
+        chk_ormval_then,pval!0,,,,
+            chk_ormval_then
+                set_sikan,pval,pid1
+                set_yaku,pval,3
+            chk_ormval_else
+    chk_mval_else
+
+
+
+// 妃が妊娠できるかチェック。できるならpid2に妃のidを入れる
+get_mpid,覇王=pid1,状態=2,年齢>OLD,性別=2,不妊=0,懐妊=0,勲功=12200
+set_epid2,pval
+
+// 妾が妊娠できるかチェック。できるならpid3に妾のidを入れる
+get_mpid,覇王=pid1,状態=2,年齢>OLD,性別=2,不妊=0,懐妊=0,役職=3
+set_epid3,pval
+
+
+
+// 妃か妾どちらかを選んで妊娠させる方をpid4に入れる。どちらも無理ならpid4=0
+set_epid4,0
+rnd,2
+case0
+    // 妃優先
+    chk_mval,pid2!0,,,,
+        chk_mval_then
+            set_epid4,pid2
+            goto,*ninsin
+        chk_mval_else
+            set_epid4,pid3
+            goto,*ninsin
+case1
+    // 妾優先
+    chk_mval,pid3!0,,,,
+        chk_mval_then
+            set_epid4,pid3
+            goto,*ninsin
+        chk_mval_else
+            set_epid4,pid2
+            goto,*ninsin
+
+
+*ninsin
+    // デバッグ表示 set_run_msg,覇王:p_name1 妃:p_name2 妾:p_name3 種付け先:p_name4 子供数:str_eveflg(210)
+
+    // pid4がpid1を妊娠させる
+    chk_mval,pid1!0,pid4!0,,,
+        chk_mval_then
+            set_non_virgin,pid4
+            set_ninsin,pid4,pid1
+        chk_mval_else
+
+end

@@ -1,0 +1,59 @@
+// ■娘の寝取りイベント
+
+bl_fadeout
+bgm_chg,64
+zin_old_init
+zin_old_img_pid,pid1,1
+zin_old_msg,p_name4はp_name1に襲いかかった,0
+zin_old_msg,えっ、call_pid14！？何をするの！！！？,pid1
+zin_old_msg,call_pid41はcf_pid4の娘だ。いまから性教育をしてやる！,pid4
+chk_ormval,オルド回数:pid1!0,友好:pid1=110,,,
+    chk_ormval_then
+        zin_old_msg,や、やめてっ！cf_pid1はp_name1さんと結婚するの！もうcall_pid14とはしたくない！！,pid1
+        zin_old_msg,大人しくしろっ！暴れると上手く入らないだろ！！,pid4
+        zin_old_msg,い、いやああぁぁ！？離して！！あぁっ、またcf_pid1っ・・・あぁあぁあ！？,pid1
+        zin_old_msg,call_pid41はcf_pid4のものだろ！今から教育し直してやるっ！,pid4
+        goto,*chkMerge
+    chk_ormval_else
+        zin_old_msg,えっ！？call_pid14やめてっ！性教育って・・・何を言ってるの！,pid1
+        zin_old_msg,大人しくしろっ！暴れると上手く入らないだろ！！,pid4
+        zin_old_msg,い、いやああぁぁ！？離して！！あぁっ、まさか本当にっ・・・あぁあぁあ！？,pid1
+        zin_old_msg,はぁ、はぁ・・・。おい、随分すんなりと入ったな。まさか・・・,pid4
+        zin_old_msg,call_pid14いやっ！早く抜いてっ！抜いてってば！こんなの絶対おかしいっ！！,pid1
+        zin_old_msg,call_pid41、お前もうp_name2に抱かれたのか！？この淫乱娘がっ！教育し直してやるっ,pid4
+        goto,*chkMerge
+
+*chkMerge
+    zin_old_msg,あっ、いやっ、動かないでっ！やめてcall_pid14っ！あぁっ、んぁあぁっ！,pid1
+    zin_old_msg,はぁ、あっ、あっ、あぅっ・・・んひぃ！いやぁ、call_pid14許してぇ・・・,pid1
+    zin_old_msg,駄目だ！隠れて男と遊んでいるような娘には、男の恐ろしさを体にたたき込んでやる！,pid4
+    zin_old_msg,んぅぅうっ！？激しっ、call_pid14激しいっ、もっと優しくしてっ！,pid1
+    zin_old_msg,あの男にもやられたんだろうが！？今さら生娘ぶっても無駄だ！,pid4
+    zin_old_msg,こんなの違うっ！p_name2さんはもっと優しくっ、してくれたもんっ・・・あうぅっ・・・,pid1
+    zin_old_msg,お前はあの男に騙されているんだ。あいつと結婚したら毎晩滅茶苦茶にされるんだぞ！？,pid4
+    zin_old_msg,嘘よっ！そんなの嘘っ！あの人は他の男とは違うんだからっ！こんなこと絶対に・・・っ,pid1
+    zin_old_msg,ふん、どうだかな。最初はみんな優しい顔で近づいてくるもんだ。cf_pid4の娘がこれほど世間知らずだったとは！,pid4
+    zin_old_msg,ああぁぁあっ！いやぁっ、動かないでっ！来ちゃうっ！やっ、いやっ、やめてっ！あひぃ！？,pid1
+    zin_old_msg,cf_pid4ももうすぐだ。call_pid41の中に直接、男ってものを教えてやる！,pid4
+    zin_old_msg,んぁあっ！中にっ！？中に出すのっ！？お願い、やめてっ！外に出してぇっ！！,pid1
+    zin_old_msg,ああああっ、いやぁっ！気持ちいいの来ちゃうっ！crcall_pid14のtin_strでイっちゃう！,pid1
+    zin_old_msg,ひゃあああぁぁあぁ！イくぅうぅううぅううぅ！！,pid1
+    zin_flush,pid1
+    zin_old_msg,んぅううぅううう！call_pid14の精液出されてるっ！！駄目ぇっ！,pid1
+    zin_old_msg,男と付き合うとはこういうことだっ！こうして種を付けられるんだ！,pid4
+    zin_old_msg,いやぁああぁっ！もう出さないでぇっ！call_pid14の子ども産みたくないいぃ！！,pid1
+    zin_flush_one,pid1
+    zin_old_msg,はぁ、はぁ・・・うぅ・・・。赤ちゃんできちゃうよぉ・・・call_pid14のなんて・・・,pid1
+    zin_old_msg,call_pid41の子ということはcf_pid1の孫か！ははは、これはめでたいな！,pid4
+    zin_old_msg,そん、なっ・・・。うぅ・・・p_name2さん助けて・・・・・・,pid1
+    zin_old_msg,む、まだ教育が足りないか？仕方がない。わかるまで付き合ってやろう。全く手のかかる娘だ,pid4
+    zin_old_msg,い、いやっ！もうわかったから！ごめんなさいっ、cr許してっ！！もう嫌なの！,pid1
+    zin_old_msg,躾けは親の義務だからな。cf_pid4も心苦しいが必要なことなんだ。許してくれ,pid4
+    zin_old_msg,いやあぁああぁあああ！！！！,pid1
+    zin_old_msg,p_name4はp_name1に教育を施した,0
+    chk_mval,友好:pid1!110,,,,
+        chk_mval_then
+            set_sinmitu,pid1,1
+        chk_mval_else
+
+    txtload,u_npc_marry/ntr_end

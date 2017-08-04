@@ -1,0 +1,18 @@
+// 子種管理(5月に0歳へ戻す)
+
+eve_start
+    if_aft_date,81,1
+    if_month,5
+eve_end
+
+//子種5で1～2歳になってしまったのを0歳へ戻す
+for,20,eveflg232,1
+    get_mpid,状態=5,特殊=0,父=0,母=0,年齢>0,年齢<3,
+    chk_mval,pval=0,,,,
+    chk_mval_then
+        break
+    chk_mval_else
+        set_pnen,pval,0
+        continue
+next
+end

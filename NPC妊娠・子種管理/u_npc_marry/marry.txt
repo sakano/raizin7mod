@@ -1,0 +1,126 @@
+// ■pid1(女)とpid2(男)が結婚する
+
+// pid4はプレイヤー
+set_epid4,player
+
+// 覇王プレイの時は特殊処理
+chk_mval,勲功:player=13000,,,,
+chk_mval_then
+    txtload,u_npc_marry/marry_haou
+chk_mval_else
+
+// 家族の場合は特殊処理
+chk_family,pid1,player
+case_fam_母
+case_fam_姉
+case_fam_妹
+case_fam_娘
+case_fam_娘(養)
+    txtload,u_npc_marry/marry_kazoku
+default_fam
+    chk_mval,父:player!0,父:player=父:pid2,,,
+        chk_mval_then
+            txtload,u_npc_marry/marry_kazoku
+        chk_mval_else
+    chk_mval,母:player!0,母:player=母:pid2,,,
+        chk_mval_then
+            txtload,u_npc_marry/marry_kazoku
+        chk_mval_else
+    chk_ormval,player=父:pid2,,,,
+        chk_ormval_then
+            txtload,u_npc_marry/marry_kazoku
+        chk_ormval_else
+
+
+set_pkon,pid1,pid2
+
+// 他勢力での結婚ならここで終わり
+chk_ormval,状態:player!2,覇王:pid1!poid_player,覇王:pid2!poid_player,,
+    chk_ormval_then
+        end
+    chk_ormval_else
+
+
+// 家族で無ければpid3が結婚の知らせを伝える
+set_epid3,844
+get_mpid,覇王=poid_player,性別=1,状態=2,年齢>OLD,面会>0
+chk_mval,pval!0,pval!player,,,
+    chk_mval_then
+        set_epid3,pval
+    chk_mval_else
+
+// 結婚の知らせを聞く
+bgm_chg,60
+zin_reg_init
+zin_reg_event,通路,pid3,player,,gzin25
+chk_kunko,player,pid3
+case_kun_上司
+case_kun_同僚
+    zin_reg_msg,聞いたかplayer_name,0
+    zin_reg_msg,call_pid32とcall_pid31が結婚するらしいぞ,0
+    goto,*select
+case_kun_部下
+default_kun
+    zin_reg_msg,call_pid34ご存じですか,0
+    zin_reg_msg,なんでもcall_pid32とcall_pid31が結婚するとか,0
+    goto,*select
+
+*select
+    zin_reg_msg,なんだと！？,1
+    chk_ormval,友好:pid1>=80,オルド回数:pid1>0,弱み:pid1>0,,
+        chk_ormval_then
+            zin_reg_face,pid1
+            zin_reg_msg,まさかcall_pid41が・・・,1
+            zin_reg_2sel,祝電を送る,女を犯す
+            get_resp
+            ret_sel1
+                goto,*shukuden
+            ret_sel2
+                add_menkai,pid1
+                chk_mval,友好:pid1=110,,,,
+                    chk_mval_then
+                        txtload,u_npc_marry/ntr_dorei
+                    chk_mval_else
+                chk_mval,弱み:pid1>0,,,,
+                    chk_mval_then
+                        txtload,u_npc_marry/ntr_yowami
+                    chk_mval_else
+                chk_mval,オルド回数:pid1>0,,,,
+                    chk_mval_then
+                        txtload,u_npc_marry/ntr_old
+                    chk_mval_else
+                        txtload,u_npc_marry/ntr_sinrai
+        chk_ormval_else
+            goto,*shukuden
+
+*shukuden
+    // ■寝取らない場合
+    chk_mval,オルド回数:pid1>0,,,,
+        chk_mval_then
+            rnd,4
+            case0
+                zin_reg_msg,call_pid41はcf_pid4の女だと思っていたのだがな,1
+                zin_reg_msg,他に男を作っていたとは,1
+                zin_reg_msg,とにかく盛大に祝ってやろう,1
+                goto,*shukudenEnd
+            case1
+                zin_reg_msg,call_pid41はなかなかいい身体をしていたな,1
+                zin_reg_msg,あれがcall_pid42のものになるのか・・・,1
+                zin_reg_msg,ともあれ盛大に祝ってやろう,1
+                goto,*shukudenEnd
+            case2
+                zin_reg_msg,call_pid41はcf_pid4のお古なのだがな,1
+                zin_reg_msg,・・・ふふ、あとでcall_pid42に使い心地を聞いてやろうか,1
+                zin_reg_msg,まずは盛大に祝ってやろう,1
+                goto,*shukudenEnd
+            case3
+                zin_reg_msg,call_pid41の体は惜しいが・・・世間体もあるからな,1
+                zin_reg_msg,call_pid42にはcf_pid4の使い古しがちょうどよかろう,1
+                zin_reg_msg,せいぜい盛大に祝ってやろう,1
+                goto,*shukudenEnd
+        chk_mval_else
+            zin_reg_msg,よし、ここは盛大に祝ってやろう,1
+    *shukudenEnd
+            zin_reg_button,0
+            zin_reg_exit
+            end

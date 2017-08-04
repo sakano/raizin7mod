@@ -1,0 +1,58 @@
+// 仕官しているNPC夫婦に子作りさせる
+
+eve_start
+    if_rnd,12
+eve_end
+
+
+// 10回まで条件に合うカップルを再検索する
+for,10,290,1
+    // 結婚済みの妻と夫を探してpid1、pid2に入れる。最初の5回は自勢力内で探す
+    get_mpid,性別=2,状態=2,婚姻!0,懐妊=0,勲功!12200,年齢<=45,覇王=poid_player
+    chk_ormval,pval=0,eveflg290>5,状態:player!2,,
+        chk_ormval_then
+            get_mpid,性別=2,状態=2,婚姻!0,懐妊=0,勲功!12200,年齢<=45,年齢>=OLD
+        chk_ormval_else
+    chk_ormval,pval=0,,,,
+        chk_ormval_then
+            end
+        chk_ormval_else
+    set_epid1,pval
+    set_epid2,婚姻:pid1
+
+    // デバッグ表示 set_eveflg,222,子供数:pid2
+    // デバッグ表示 set_run_msg,[妊娠させる夫婦を検索中]p_name1、p_name2、子供数:str_eveflg(222)
+
+    // 出産できる条件でなければ再検索
+    chk_ormval,pid1=0,pid2=0,pid1=player,pid2=player,
+        chk_ormval_then
+            continue
+        chk_ormval_else
+    chk_ormval,覇王:pid1!覇王:pid2,年齢:pid1<OLD,年齢:pid2<OLD,性別:pid2!1,不妊:pid1!0
+        chk_ormval_then
+            continue
+        chk_ormval_else
+    chk_ormval,状態:pid2!2,特殊:pid2!0,不妊:pid2!0,特殊:pid1!0,役職:pid1=3
+        chk_ormval_then
+            continue
+        chk_ormval_else
+    chk_ormval,状態:pid1!2,状態:pid2!2,,,
+        chk_ormval_then
+            continue
+        chk_ormval_else
+
+    // 夫に子供が2人以上いたら再検索
+    chk_ormval,子供数:pid2>=2,,,,
+        chk_ormval_then
+            continue
+        chk_ormval_else
+
+    // デバッグ表示 set_run_msg,[妊娠させる夫婦を発見]p_name1、p_name2
+
+    set_ninsin,pid1,pid2
+    end
+next
+
+end
+
+

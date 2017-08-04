@@ -1,0 +1,15 @@
+zin_old_exit
+
+// 20%�̊m���ŔD�P
+rnd,5
+case0
+    set_datai,pid1
+    set_ninsin,pid1,pid4
+case1
+case2
+case3
+case4
+
+set_non_virgin,pid1
+
+end

@@ -1,0 +1,99 @@
+// ■信頼関係がある場合の寝取りイベント(性奴隷・弱みあり・オルド経験あり以外)
+
+bgm_chg,70
+zin_reg_event,結婚式当日,,pid4,,gzin61
+zin_reg_qnar,player_nameは花嫁の控室に忍び込んだ。
+chk_kunko,player,pid1
+case_kun_上司
+    zin_reg_msg,call_pid41、花嫁姿もおきれいですね,1
+    zin_reg_event,結婚式当日,pid1,pid4,,gzin61
+    zin_reg_msg,call_pid14！？こんなところに何用ですか！,0
+    zin_reg_msg,式の前にご挨拶差し上げようかと思いまして,1
+    zin_reg_msg,・・・いくらcall_pid14でも控室に入り込むのは失礼です,0
+    zin_reg_msg,そう邪険にしないでください,1
+    zin_reg_msg,ところで花婿殿はどこですかな？,1
+    zin_reg_msg,call_pid12は新郎の控室にいるはずです,0
+    zin_reg_msg,なるほど。今がチャンスという訳だ,1
+    zin_reg_msg,チャンス？何の話ですか？,0
+    zin_reg_msg,call_pid41を襲うチャンスですよッ！,1
+    zin_reg_msg,きゃあああ！？,0
+    goto,*mergeKunko
+case_kun_同僚
+    zin_reg_msg,call_pid41、花嫁姿も似合ってるじゃないか,1
+    zin_reg_event,結婚式当日,pid1,pid4,,gzin61
+    zin_reg_msg,call_pid14！？なんでこんなところに！,0
+    zin_reg_msg,式の前に少し喋りたくてね,1
+    zin_reg_msg,・・・いくらcall_pid14でも控室に入るのは失礼じゃない？,0
+    zin_reg_msg,call_pid41がcall_pid42のものになるなんて、未だに信じられないな,1
+    zin_reg_msg,あら、call_pid14がそんなこと言うなんて,0
+    zin_reg_msg,ところでcall_pid42は？,1
+    zin_reg_msg,いまは新郎の控室だと思うけど,0
+    zin_reg_msg,なるほど。今がチャンスという訳だ,1
+    zin_reg_msg,チャンス？何の話？,0
+    zin_reg_msg,call_pid41を襲うチャンスだっ！,1
+    zin_reg_msg,きゃあああ！？,0
+    goto,*mergeKunko
+case_kun_部下
+default_kun
+    zin_reg_msg,call_pid41、花嫁姿も似合ってるじゃないか,1
+    zin_reg_event,結婚式当日,pid1,pid4,,gzin61
+    zin_reg_msg,call_pid14！？どうしてこんなところに！？,0
+    zin_reg_msg,式の前に少し喋りたくてね,1
+    zin_reg_msg,・・・いくらcall_pid14でも控室に入るのは失礼かと思いますが,0
+    zin_reg_msg,call_pid41がcall_pid42のものになるなんて、未だに信じられないな,1
+    zin_reg_msg,はあ。お褒め頂いているのでしょうか,0
+    zin_reg_msg,ところでcall_pid42はどこだ？,1
+    zin_reg_msg,call_pid12は新郎の控室にいると思います,0
+    zin_reg_msg,なるほど。今がチャンスという訳だ,1
+    zin_reg_msg,チャンス？何のことですか？,0
+    zin_reg_msg,call_pid14を襲うチャンスだっ！,1
+    zin_reg_msg,きゃあああ！？,0
+    goto,*mergeKunko
+
+*mergeKunko
+bl_fadeout
+bgm_chg,64
+zin_old_init
+zin_old_img_pid,pid1,1
+zin_old_msg,うっ、ううっ、なんでこんなことに・・・,pid1
+zin_old_msg,call_pid41のman_strは最高だっ！もっと早くにヤっておけばよかったな！,pid4
+zin_old_msg,うううぅうっ・・・。こんな人だったなんてっ、最低っ！信じられないっ・・・,pid1
+zin_old_msg,call_pid41が結婚しようとするのが悪いな。人の女は欲しくなるのが男の本能だッ！,pid4
+zin_old_msg,この鬼畜っ・・・絶対許さないからっ！あなたなんか死ぬまで牢獄暮らしよっ！,pid1
+zin_old_msg,call_pid42に言いつける気なのか？披露宴前に犯された女をもらうほどお人好しとは思えんが？,pid4
+zin_old_msg,このことが世間に知れたら、お前もp_name2も赤っ恥だろうな。p_name2なら名誉の自殺をするかもしれん,pid4
+zin_old_msg,な、なによそれ！cf_pid1を脅すつもり！？,pid1
+zin_old_msg,お前が少し我慢すればcf_pid4は気持ちいいしお前も幸せな結婚生活を送れるんだ。よく考えるんだな,pid4
+zin_old_msg,なにをっ・・・あなたって本当に最低っ！死ねっ！この強姦魔っ！,pid1
+zin_old_msg,・・・話は終わりだ。式まで時間もないし早めに済ませてやろう,pid4
+zin_old_msg,んっ、あぁっ！もうやっ、やめっ、んぅっ、あっ、はぁっ、あぁあっ！,pid1
+zin_old_msg,あぅっぁ、ひぁっ、あぁぁぁっ！やめてぇっ、こんなのおかしいわっ！,pid1
+zin_old_msg,いま止めたら悶々としたまま式に出ることになるぞ。責任もってイかせてやるからな,pid4
+zin_old_msg,あひっ、んっぁ、あぅっ、ああぁぁんっ！お願いっ、もうやめてっ！,pid1
+zin_old_msg,ほんとにcf_pid1っ、イっちゃうっ！いやっ、イかされちゃうっ、いやぁぁあ！？,pid1
+zin_old_msg,ふう、call_pid41のman_strは正に名器だなっ。すぐ出してやるから受け止めろ！,pid4
+zin_old_msg,出すって、まさか！？待って、中には出さないでっ！,pid1
+zin_old_msg,cf_pid4からの結婚祝いだ。子どもができたらp_name2と大切に育ててくれ,pid4
+zin_old_msg,そっ、そんなっ！嫌っ、そんなの嫌ぁっ！？抜いてっ！今すぐ抜いてぇっ！,pid1
+zin_old_msg,うぅっ、そんなに締め付けられては・・・出すぞp_name1っ・・・！,pid4
+zin_old_msg,いやあぁぁあ！？助けてっ！誰か助けてっ！！精液出されちゃうっ！cf_pid1っ、孕まされちゃうっ！,pid1
+zin_old_msg,あぁあああぁっ、いやあぁあああああああ！！？,pid1
+zin_flush,pid1
+zin_old_msg,んぁぁああぁああああ！！出てるっ！子宮に当たっちゃってるっ！！,pid1
+zin_old_msg,ひゃぁあっ！？tin_strが膨らんでっ・・・まだ出るのっ！？これ以上は駄目ぇ！ほんとにできちゃうからぁ！,pid1
+zin_flush_one,pid1
+zin_old_msg,はぁ・・・いつも以上に出してしまった。外にまで垂れてきているじゃないか。p_name1、よかったぞ,pid4
+zin_old_msg,うぅ、あぁ・・・どうしよう・・・赤ちゃんできてたら・・・cf_pid4・・・・・・,pid1
+zin_old_msg,おい、しっかりしろ。呆けている間に式が始まるぞ。どれ、目覚めのキスもしてやろう,pid4
+zin_old_msg,んっ！？うむぅぅううぅうっ！！,pid1
+zin_old_msg,起きたようだな。さあ立て。ドレスは汚さないでおいてやったからな。早く着替えろ,pid4
+zin_old_msg,あなた・・・何考えてるの？式なんてもう・・・,pid1
+zin_old_msg,なんだ？本当にcf_pid4を告発する気か？cf_pid1は式場で強姦されて孕まされた女ですって宣伝して回るのか？もう二度と幸せにはなれないだろうな！あはははは！,pid4
+zin_old_msg,ううぅ・・・もう・・・。信じられない・・・・・・,pid1
+zin_old_msg,その後、p_name1は無事に式に出た。p_name1のドレス姿は本当に美しかった。二人には幸せになってほしいものだ！,0
+zin_old_msg,p_name1の弱みを握った,0
+zin_reg_button,0
+upd_sts,pid1,弱み,1
+set_sinmitu,pid1,1
+
+txtload,u_npc_marry/ntr_end

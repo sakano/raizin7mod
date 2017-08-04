@@ -1,0 +1,81 @@
+// ■弱みを握っている場合の寝取りイベント(性奴隷以外)
+
+bgm_chg,54
+chk_mval,勲功:player>7000,,,,
+    chk_mval_then
+        zin_reg_event,player_nameの家,pid1,pid4,,gzin72
+        goto,*mergetChk
+    chk_mval_else
+        zin_reg_event,player_nameの家,pid1,pid4,,gzin18
+        goto,*mergetChk
+
+*mergetChk
+    zin_reg_qnar,player_nameはp_name1を呼び出した。
+    chk_kunko,player,pid1
+    case_kun_上司
+        zin_reg_msg,こんな場所まで呼び出して、call_pid14、何の用件です？,0
+        zin_reg_msg,ちょっと小耳に挟んだのですが、call_pid41はcall_pid42とご結婚なさるとか,1
+        zin_reg_msg,ええ、そうよ。ふふ、お祝いでもくださるのかしら？,0
+        zin_reg_msg,はい、お祝いはもちろんさせて頂きますよ,1
+        zin_reg_msg,ですが今はcall_pid41にご覧に入れたい物がありまして。こちらです,1
+        zin_reg_msg,ご覧に入れたい物？なにかしら？,0
+        zin_reg_msg,・・・えっ、まさか・・・そんなっ！？,0
+        zin_reg_msg,これが公になったらcall_pid41はご結婚どころでは無いでしょうね？,1
+        zin_reg_msg,・・・call_pid14、なにが目的なの？,0
+        zin_reg_msg,大したことでは無いですよ,1
+        zin_reg_msg,ただ、嫁入り前のcall_pid41の肢体を試食させて頂けないかなと思いまして,1
+        zin_reg_msg,・・・！？この下衆っ、何を言っているかわかってるの！？,0
+        zin_reg_msg,call_pid41こそ、口の利き方には気をつけた方がよろしいのでは？,1
+        zin_reg_msg,ううっ・・・,0
+        zin_reg_msg,ふふふ,1
+        zin_reg_msg,・・・勝手にしなさい,0
+        goto,*mergeKunko
+    case_kun_同僚
+        zin_reg_msg,呼ばれたから来たけど・・・call_pid14、なんの用？,0
+        zin_reg_msg,ああ、call_pid41がcall_pid42と結婚すると聞いたぞ,1
+        zin_reg_msg,あら、まだ言ってなかったかしら？そうよ、cf_pid1も幸せな新婚生活を送るのよ,0
+        zin_reg_msg,ふんっ。その前にこいつを見てもらおうか,1
+        zin_reg_msg,えっ・・・なにこれ・・・。う、嘘でしょ！？,0
+        zin_reg_msg,こいつを公にしてほしくなかったら言うことを聞け,1
+        zin_reg_msg,なっ、cf_pid1に何をさせようって言うの？,0
+        chk_mval,オルド回数:pid1>0
+            chk_mval_then
+                zin_reg_msg,なに、お前の体の抱き心地が忘れられなくてな。もう一度愛し合おうぜ,1
+                zin_reg_msg,cf_pid1結婚するのよ！？ふざけたことを言わないで！,0
+                zin_reg_msg,なんだ、嫌なのか。まずはcall_pid42のところに見せに行ってやろうか？,1
+                zin_reg_msg,や、やめてっ！,0
+                zin_reg_msg,うぅ・・・わ、わかったわよ・・・一回だけだからね・・・,0
+                zin_reg_msg,ははは、わかってるさ,1
+                goto,*mergeKunko
+            chk_eveflg_else
+                zin_reg_msg,お前の体は前からエロいと思ってたんだ。ちょっと使わせてくれよ,1
+                zin_reg_msg,な・・・ふざけたことを言わないで！,0
+                zin_reg_msg,なんだ、嫌なのか。まずはcall_pid42のところに見せに行ってやろうか？,1
+                zin_reg_msg,や、やめてっ！,0
+                zin_reg_msg,うぅ・・・わ、わかったわよ・・・一回だけだからね・・・,0
+                zin_reg_msg,ははは、わかってるさ,1
+                goto,*mergeKunko
+    case_kun_部下
+    default_kun
+        zin_reg_msg,pk_name1参りました。call_pid14、何のご用でしょうか,0
+        zin_reg_msg,いや、call_pid41がcall_pid42と結婚すると聞いてな,1
+        zin_reg_msg,あ、はい。もうすぐ式も挙げる予定です,0
+        zin_reg_msg,ふふふ、幸せそうでなによりだ,1
+        zin_reg_msg,そんなときに悪いのだがこれを見てもらおうか,1
+        zin_reg_msg,はい・・えっ、嘘っ！？まさか、これcf_pid1のっ・・・！？,0
+        zin_reg_msg,ふふ、そういうことだ,1
+        zin_reg_msg,これをばらまかれたくなかったら、大人しくcf_pid4の命令を聞くんだ,1
+        zin_reg_msg,・・・命令って・・・。何をしろというのですか・・・？,0
+        zin_reg_msg,簡単なことだ。嫁入り前に夜伽の作法を教えてやろうと思ってな,1
+        zin_reg_msg,えっ？,0
+        zin_reg_msg,cf_pid4がcall_pid41を抱いてやる。光栄に思え,1
+        zin_reg_msg,・・・うっ・・・。,0
+        zin_reg_msg,わ、わかりました・・・,0
+        goto,*mergeKunko
+
+*mergeKunko
+    chk_mval,オルド回数:pid1!0,,,,
+        chk_mval_then
+            txtload,u_npc_marry/ntr_yowami_keikenzumi
+        chk_mval_else
+            txtload,u_npc_marry/ntr_yowami_hajimete

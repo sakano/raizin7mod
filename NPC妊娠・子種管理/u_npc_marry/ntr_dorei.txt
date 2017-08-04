@@ -1,0 +1,77 @@
+// ■性奴隷の場合の寝取りイベント
+
+bgm_chg,54
+zin_reg_event,player_nameの執務室,pid1,pid4,,gzin43
+zin_reg_qnar,player_nameはp_name1を呼び出した。
+chk_kunko,player,pid1
+case_kun_上司
+    zin_reg_msg,call_pid14、呼びましたか？,0
+    zin_reg_msg,ああ、やっと来たか。p_name1,1
+    zin_reg_msg,風の噂で聞いたんだが、p_name2の奴と結婚するらしいじゃないか,1
+    zin_reg_msg,・・・ええ、そのつもりよ,0
+    goto,*mergeKunko
+case_kun_同僚
+case_kun_部下
+default_kun
+    zin_reg_msg,p_name4様、お呼びですか？,0
+    zin_reg_msg,ああ、やっと来たか。p_name1,1
+    zin_reg_msg,風の噂で聞いたんだが、p_name2の奴と結婚するらしいじゃないか,1
+    zin_reg_msg,・・・はい、そのつもりです,0
+    goto,*mergeKunko
+
+*mergeKunko
+    zin_reg_msg,いつもcf_pid4に抱かれてよがっているお前が、p_name2のテクで満足できるのか？,1
+    zin_reg_msg,call_pid14には関係ないと思います,0
+    zin_reg_msg,関係ないとはなんだ！crこの性奴隷がっ！,1
+    zin_reg_msg,cf_pid4の許可も無しに結婚なんかできると思っているのか！？,1
+    zin_reg_msg,call_pid14とは体だけの関係です,0
+    zin_reg_msg,それももう終わりにします,0
+    zin_reg_msg,なにっ！終わりっ！？,1
+    zin_reg_msg,もう一度言ってみろっ！,1
+    zin_reg_msg,あっ！？,0
+    bl_fadeout
+    bgm_chg,64
+    zin_old_init
+    zin_old_img_pid,pid1,1
+    zin_old_msg,い、いやぁ！やめてっ、やめてくださいっ！cf_pid1にはp_name2がいるのっ！あぅっ,pid1
+    zin_old_msg,ふふふ・・・p_name1の体のことはcf_pid4が一番よく知っているんだ。すぐに天国に連れて行ってやるぞっ,pid4
+    zin_old_msg,いや・・・うぅ・・・もうっ、触らないでぇ・・・crはぁんっ、お願いっ、・・・あっ、あんっ,pid1
+    zin_old_msg,あはは、少し撫でてやっただけでそんなに感じているのか。やはりcall_pid41の体はすっかり牝奴隷だ。p_name2ごときにはもったいない,pid4
+    zin_old_msg,ううう・・・いやっ、嫌なのに・・・どうしてっ。crあぁんっ、気持ちよくなっちゃうのっ・・・。p_name2・・・ごめんなさい・・・,pid1
+    zin_old_msg,p_name2の事などすぐに忘れさせてやろう。ここなどどうだ？好きだっただろう,pid4
+    zin_old_msg,はぁっ、あっ、うぅっ、優しくしないでっ・・・crあぁん！はぁっ、あぁっ、あっ、ああぁっ！,pid1
+    zin_old_msg,お前とは後ろで楽しんだこともあったな。今日もこちらを使ってみるか？,pid4
+    zin_old_msg,ひゃぁああっ！そ、そんなところっ、p_name2にも触られたことないのにっ！あぁっ、ごめんなさいっ、許してぇ！,pid1
+    zin_old_msg,ふふふ、いやらしく濡らしおって。これほど期待されては男として応えない訳にはいかないな。そら、さっそく挿れてやろう,pid4
+    zin_old_msg,えっ！？やっ、やめてっ、それだけは駄目っ！crひゃあっ、やだっ、は、離してっ！,pid1
+    zin_old_msg,まだ抵抗する気なのか？しかし体の方はそうは言っていないぞ！それっ！,pid4
+    zin_old_msg,んっ、んああぁあああぁあっ！だめっ、先っぽ、入ってるっ・・・入っちゃってるからっ・・・はっ、あ、あうっ、止まってっ、だめっ！！んぅうううっ・・・！,pid1
+    zin_old_msg,もっと本気で抵抗しないと入ってしまうぞ。やはり挿れて欲しかったんだな,pid4
+    zin_old_msg,・・・うぅっ、ぜんぶ入っちゃった・・・奥まで全部・・・うぅぅぅ・・・,pid1
+    zin_old_msg,ああ、お前のman_strはcf_pid4のものだ。cf_pid4のtin_strの形を覚えてしまっているぞ,pid4
+    zin_old_msg,あぁっ、動かないでっ！あっ、あうっ、あっあぁああっ！ゆ、許してっ！おねがいっ、抜いてっ！,pid1
+    zin_old_msg,んぅうぅっ、くぅうぅっ、あぁぁんっ！cf_pid1のman_strっ、call_pid14の形になっちゃうぅっ！もう抜いてぇっ！,pid1
+    zin_old_msg,はは、嫌がる女を抱くのも愉快な物だなっ。おい、このままでは旦那より先にcf_pid4の子どもを産むことになるぞ！？,pid4
+    zin_old_msg,や、やだっ、赤ちゃんっ、だめっ！p_name2にバレちゃうっ、あんっ！こんなのっ、んぅうっ知られたくないのっ！,pid1
+    zin_old_msg,はぁっ、あぅっ、中は駄目ぇっ！中に出されたらっ、赤ちゃんできちゃうのっ！外、外に出してぇっ・・・！,pid1
+    zin_old_msg,cf_pid4の子どもを産むのも牝奴隷の立派な仕事だっ！ほら、ここを突かれるのが好きなんだろっ！,pid4
+    zin_old_msg,ひゃっ！あっ、あうっ、あぁあんっ！そこっ、だめっ、気持ちいいっ！んあっ、んっ、やあっ！,pid1
+    zin_old_msg,あぐぅうううっ、いやっ、感じたくなんかっ、ないのにっ、あっ、なんでっ、いやなのっ！,pid1
+    zin_old_msg,うっ、んっ、はあっ！も、もうっ、イっちゃうっ！crイっちゃうのっ！いやっ！やだっ！,pid1
+    zin_old_msg,いあぁっ、イクっ、イっちゃうっ！ひあぁあぁぁあああっ！,pid1
+    zin_flush,pid1
+    zin_old_msg,うううぅっ！中でっ、中で出されてるっ！抜いてぇっ！はやく抜いてっ、抜いてくださいっ！妊娠しちゃうぅぅっ！,pid1
+    zin_flush_one,pid1
+    zin_old_msg,あぁんっ、まだ出てっ、んぁっ・・・こんなにたくさんっ・・・だめぇ！,pid1
+    zin_old_msg,暴れるなっ！いま最後の一滴まで絞り出しているところだっ！,pid4
+    zin_old_msg,あぁああぁっ・・・。中にいっぱい・・・うぅっ・・・出されちゃった・・・,pid1
+    zin_old_msg,嫌だって・・・言ったのに・・・。うう・・・ひどい・・・ひどいです・・・,pid1
+    zin_old_msg,あれほど気持ちよさそうによがっておいてひどいとは。もはやお前の体は俺なしでは生きられぬのだがな,pid4
+    zin_old_msg,うう・・・ぐすっ・・・ごめんなさい・・・ごめんなさいぃ・・・,pid1
+    zin_old_msg,ふんっ。p_name2には黙っておいてやる。その体をcf_pid4に提供し続けるかぎりはな。cf_pid4から離れようなんて二度と考えるなよ,pid4
+    zin_old_msg,・・・はい、cf_pid1はcall_pid14の性奴隷です・・・・・,pid1
+    zin_old_msg,p_name1の弱みを握った,0
+    zin_reg_button,0
+    upd_sts,pid1,弱み,1
+
+    txtload,u_npc_marry/ntr_end

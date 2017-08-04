@@ -1,0 +1,71 @@
+// 仕官しているNPC未婚女性を結婚させる
+
+eve_start
+    if_rnd,15
+eve_end
+
+
+// 10回まで条件に合うカップルを再検索する
+for,10,290,1
+    // 士官している未婚の女性を探してpid1に入れる。最初の5回は自勢力内で探す
+    get_mpid,性別=2,状態=2,婚姻=0,年齢>OLD,特殊=0,懐妊=0,覇王=poid_player
+    chk_ormval,pval=0,eveflg290>5,状態:player!2,,
+        chk_ormval_then
+            get_mpid,性別=2,状態=2,婚姻=0,年齢>OLD,特殊=0,懐妊=0,不妊=0
+        chk_ormval_else
+    chk_ormval,pval=0,,,,
+        chk_ormval_then
+            end
+        chk_ormval_else
+    set_epid1,pval
+
+    // pid1と同じ勢力の未婚男性を探してpid2に入れる
+    get_mpid,覇王=poid_pid1,性別=1,状態=2,婚姻=0,年齢>OLD,特殊=0,不妊=0
+    chk_ormval,pval=0,,,,
+        chk_ormval_then
+            end
+        chk_ormval_else
+    set_epid2,pval
+
+    // デバッグ表示 set_run_msg,[結婚させる男女を検索中]p_name1、p_name2
+
+    // 結婚できる条件でなければ再検索
+    chk_ormval,pid1=player,pid2=player,交際中:pid1>0,勲功:pid1>12000,不妊:pid1!0
+        chk_ormval_then
+            continue
+        chk_ormval_else
+    chk_ormval,状態:pid1!2,状態:pid2!2,役職:pid1=3,勲功:pid2>12000,
+        chk_ormval_then
+            continue
+        chk_ormval_else
+
+
+    // pid1とpid2が兄弟なら再検索
+    chk_mval,父:pid1!0,父:pid1=父:pid2,,,
+        chk_mval_then
+            continue
+        chk_mval_else
+    chk_mval,母:pid1!0,母:pid1=母:pid2,,,
+        chk_mval_then
+            continue
+        chk_mval_else
+
+    // pid1とpid2の年齢差が20以上なら再検索
+    set_eveflg,250,年齢:pid1
+    sub,250,eveflg250,年齢:pid2
+    chk_ormval,eveflg250<-20,eveflg250>20,,,
+        chk_ormval_then
+            continue
+        chk_ormval_else
+
+    // デバッグ表示 set_run_msg,[結婚させる男女を発見]p_name1、p_name2
+
+    // 確率の調整が複雑なので廃止。100%結婚するようにする
+    //txtload,u_npc_marry/make_child
+
+    set_non_virgin,pid1
+    //set_ninsin,pid1,pid2
+    txtload,u_npc_marry/marry
+next
+
+end
