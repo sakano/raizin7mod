@@ -2,7 +2,6 @@
 
 eve_start
     if_month,12
-    if_aft_date,81,1
 eve_end
 
 

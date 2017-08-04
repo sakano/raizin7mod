@@ -1,7 +1,6 @@
 // qíŠÇ—(5Œ‚É0Î‚Ö–ß‚·)
 
 eve_start
-    if_aft_date,81,1
     if_month,5
 eve_end
 
