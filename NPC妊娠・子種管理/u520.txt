@@ -38,7 +38,7 @@ chk_mval,pid2=0,pid3=0,,,
         get_mpid,状態=7,年齢>=OLD,年齢>=TANTO,性別=2,不妊=0,,
         chk_ormval_then,pval=0,,,,
             chk_ormval_then
-                get_mpid,状態=2,年齢>=OLD,年齢>=TANTO,性別=2,不妊=0,,
+                get_mpid,状態=5,年齢>=OLD,年齢>=TANTO,性別=2,不妊=0,,
             chk_ormval_else
         chk_ormval_then,pval!0,,,,
             chk_ormval_then
