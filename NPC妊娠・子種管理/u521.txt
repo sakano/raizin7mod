@@ -38,6 +38,10 @@ for,10,290,1
         chk_ormval_then
             continue
         chk_ormval_else
+    chk_ormval,”N—î:pid1<=16,”N—î:pid2<=16,,,
+        chk_ormval_then
+            continue
+        chk_ormval_else
 
 
     // pid1‚Æpid2‚ªŒZ’í‚È‚çÄŒŸõ
