@@ -19,7 +19,7 @@ case_fam_–º(—{)
     goto,*musume
 default_fam
     set_pkon,pid1,pid2
-    chk_ormval,•ƒ:pid2=player,,,,
+    chk_ormval,player=•ƒ:pid2,,,,
     chk_ormval_then
         goto,*musuko
     chk_ormval_else

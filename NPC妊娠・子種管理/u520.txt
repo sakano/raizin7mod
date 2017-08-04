@@ -13,10 +13,10 @@ eve_end
 set_eveflg,210,0
 for,PMAX,200,1
     chk_ormval,•ƒ:eveflg200=pid1,í•ƒ:eveflg200=pid1,,,
-    chk_ormval_then
-        plus,210,eveflg210,1
-    chk_ormval_else
-        continue
+        chk_ormval_then
+            plus,210,eveflg210,1
+        chk_ormval_else
+            continue
 next
 
 // ŒvZ‚µ‚½q‹Ÿ‚Ì”‚ª5lˆÈã‚È‚ç‚â‚ß‚é
