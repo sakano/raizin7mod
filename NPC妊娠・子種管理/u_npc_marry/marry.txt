@@ -43,7 +43,7 @@ chk_ormval,ó‘Ô:player!2,”e‰¤:pid1!poid_player,”e‰¤:pid2!poid_player,,
 
 // ‰Æ‘°‚Å–³‚¯‚ê‚Îpid3‚ªŒ‹¥‚Ì’m‚ç‚¹‚ð“`‚¦‚é
 set_epid3,844
-get_mpid,”e‰¤=poid_player,«•Ê=1,ó‘Ô=2,”N—î>OLD,–Ê‰ï>0
+get_mpid,”e‰¤=poid_player,«•Ê=1,ó‘Ô=2,”N—î>OLD,–Ê‰ï>0,,
 chk_mval,pval!0,pval!player,,,
     chk_mval_then
         set_epid3,pval
