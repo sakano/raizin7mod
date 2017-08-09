@@ -64,11 +64,7 @@ for,10,290,1
 
     // デバッグ表示 set_run_msg,[結婚させる男女を発見]p_name1、p_name2
 
-    // 確率の調整が複雑なので廃止。100%結婚するようにする
-    //txtload,u_npc_marry/make_child
-
     set_non_virgin,pid1
-    //set_ninsin,pid1,pid2
     txtload,u_npc_marry/marry
 next
 
